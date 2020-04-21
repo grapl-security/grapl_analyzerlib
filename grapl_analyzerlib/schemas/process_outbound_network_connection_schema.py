@@ -6,6 +6,7 @@ class ProcessOutboundConnectionSchema(NodeSchema):
         super(ProcessOutboundConnectionSchema, self).__init__()
         (
             self.with_str_prop("ip_address")
+            .with_str_prop("asset_id")
             .with_str_prop("protocol")
             .with_int_prop("created_timestamp")
             .with_int_prop("terminated_timestamp")
