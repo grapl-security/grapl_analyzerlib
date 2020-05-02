@@ -401,9 +401,9 @@ def generate_plugin_view_get_methods(plugin_schema: NodeSchema) -> str:
     for f_edge_name, edge_type, r_edge_name in plugin_schema.forward_edges:
 
         return_type = edge_type._inner_type.self_type() + 'View'
-        fetch = f"self.fetch_edge({f_edge_name}, {return_type})"
+        fetch = f"self.fetch_edge('{f_edge_name}', {return_type})"
         if isinstance(edge_type, OneToMany) or isinstance(edge_type, ManyToMany):
-            fetch = f"self.fetch_edges({f_edge_name}, {return_type})"
+            fetch = f"self.fetch_edges('{f_edge_name}', {return_type})"
             return_type = f'List[{return_type}]'
 
         method = f"""
@@ -643,47 +643,47 @@ def attach_reverse_edges(client: DgraphClient, schema: NodeSchema):
     pass
 
 
-def main() -> None:
-    from grapl_analyzerlib.schemas.process_schema import ProcessSchema
-    class AuidSchema(NodeSchema):
-        def __init__(self):
-            super(AuidSchema, self).__init__()
-            (
-                self
-                .with_int_prop("auid")
-            )
-
-        @staticmethod
-        def self_type() -> str:
-            return "Auid"
-
-    class AuidAssumptionSchema(NodeSchema):
-        def __init__(self):
-            super(AuidAssumptionSchema, self).__init__()
-            (
-                self.with_int_prop("assumed_timestamp")
-                    .with_int_prop("assuming_process_id")
-                    .with_forward_edge("assumed_auid", ManyToMany(AuidSchema), 'auid_assumptions')
-                    .with_forward_edge("assuming_process", OneToOne(ProcessSchema), 'assumed_auid')
-            )
-
-        @staticmethod
-        def self_type() -> str:
-            return "AuidAssumption"
-
-
-    auid_assumption_schema = AuidAssumptionSchema()
-
-    auid_assumption_query = generate_plugin_query(auid_assumption_schema)
-    auid_assumption_view = generate_plugin_view(auid_assumption_schema)
-    auid_assumption_query_extensions = generate_plugin_query_extensions(auid_assumption_schema)
-    auid_assumption_view_extensions = generate_plugin_view_extensions(auid_assumption_schema)
-
-    auid_schema = AuidSchema()
-    auid_query = generate_plugin_query(auid_schema)
-    auid_view = generate_plugin_view(auid_schema)
-    auid_query_extensions = generate_plugin_query_extensions(auid_schema)
-    auid_view_extensions = generate_plugin_view_extensions(auid_schema)
+# def main() -> None:
+#     from grapl_analyzerlib.schemas.process_schema import ProcessSchema
+#     class AuidSchema(NodeSchema):
+#         def __init__(self):
+#             super(AuidSchema, self).__init__()
+#             (
+#                 self
+#                 .with_int_prop("auid")
+#             )
+#
+#         @staticmethod
+#         def self_type() -> str:
+#             return "Auid"
+#
+#     class AuidAssumptionSchema(NodeSchema):
+#         def __init__(self):
+#             super(AuidAssumptionSchema, self).__init__()
+#             (
+#                 self.with_int_prop("assumed_timestamp")
+#                     .with_int_prop("assuming_process_id")
+#                     .with_forward_edge("assumed_auid", ManyToMany(AuidSchema), 'auid_assumptions')
+#                     .with_forward_edge("assuming_process", OneToOne(ProcessSchema), 'assumed_auid')
+#             )
+#
+#         @staticmethod
+#         def self_type() -> str:
+#             return "AuidAssumption"
+#
+#
+#     auid_assumption_schema = AuidAssumptionSchema()
+#
+#     auid_assumption_query = generate_plugin_query(auid_assumption_schema)
+#     auid_assumption_view = generate_plugin_view(auid_assumption_schema)
+#     auid_assumption_query_extensions = generate_plugin_query_extensions(auid_assumption_schema)
+#     auid_assumption_view_extensions = generate_plugin_view_extensions(auid_assumption_schema)
+#
+#     auid_schema = AuidSchema()
+#     auid_query = generate_plugin_query(auid_schema)
+#     auid_view = generate_plugin_view(auid_schema)
+#     auid_query_extensions = generate_plugin_query_extensions(auid_schema)
+#     auid_view_extensions = generate_plugin_view_extensions(auid_schema)
 
     # print(auid_query)
     # print(auid_view)
@@ -692,11 +692,11 @@ def main() -> None:
     #
     #
     # print(auid_assumption_query)
-    print(auid_assumption_view)
+    # print(auid_assumption_view)
     #
     # print(auid_assumption_query_extensions)
     # print(auid_assumption_view_extensions)
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
