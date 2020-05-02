@@ -408,10 +408,10 @@ def generate_plugin_view_get_methods(plugin_schema: NodeSchema) -> str:
 
         method = f"""
     def get_{f_edge_name}(self: "NV") -> "{return_type}":
-        cast({self_type}, self).{f_edge_name} = cast(
+        cast('{self_type}', self).{f_edge_name} = cast(
             {return_type}, {fetch}
         )
-        return cast({self_type}, self).{f_edge_name}    
+        return cast('{self_type}', self).{f_edge_name}    
         """
 
         methods += method
