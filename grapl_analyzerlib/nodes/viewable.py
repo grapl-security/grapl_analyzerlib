@@ -46,7 +46,8 @@ class Viewable(abc.ABC):
         self.dynamic_properties = {}  # type: Dict[str, Property]
 
     def extend(self, extended_type: Type[NV]) -> NV:
-        return extended_type(self.dgraph_client, self.node_key, self.uid)
+        if extended_type
+        return extended_type(self.dgraph_client, self.node_key, self.uid, node_type=self.get_node_type())
 
     @staticmethod
     @abc.abstractmethod
