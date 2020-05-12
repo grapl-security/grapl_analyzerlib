@@ -172,15 +172,14 @@ if __name__ == "__main__":
         try:
             provision(local_dg_provision_client,)
         except Exception as e:
-            hint = ""
-            if isinstance(e, RpcError):
+            if isinstance(e, RpcError) and e.code() == StatusCode.UNAVAILABLE:
                 hint = "have you booted the local dgraph server?"
 
             print(f"Retry {i}/{num_retries}: {hint}\n {e}")
+            time.sleep(1)
         else:
             break
 
-        time.sleep(1)
 
     time.sleep(1)
     print("grapl_provision complete!\n")

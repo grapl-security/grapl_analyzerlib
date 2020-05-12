@@ -34,13 +34,10 @@ setup(
         "grapl_analyzerlib.schemas": ["schemas/py.typed"],
     },
     include_package_data=True,
-    install_requires=[
-        "pydgraph", 
-        "typing_extensions"
-    ],
+    install_requires=["pydgraph", "typing_extensions"],
     extras_require={
         "linters": LINTERS_REQUIREMENTS,
         "test": TEST_REQUIREMENTS,
         "dev": LINTERS_REQUIREMENTS + TEST_REQUIREMENTS,
-    }
+    },
 )
