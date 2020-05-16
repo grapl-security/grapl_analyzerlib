@@ -330,7 +330,8 @@ class Viewable(abc.ABC):
         for prop, into in cls._get_property_types().items():
             val = d.get(prop)
 
-            if val or val == 0:
+            # should this just be an is-not-None?
+            if val or val == 0 or val == "":
                 if into == str:
                     val = unescape_dgraph_str(str(val))
                 elif into == int:
