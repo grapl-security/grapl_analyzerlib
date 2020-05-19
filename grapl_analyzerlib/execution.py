@@ -1,5 +1,5 @@
 import json
-from typing import Union, cast, Dict
+from typing import Union, cast, List, Tuple
 
 
 class ExecutionHit(object):
@@ -8,7 +8,7 @@ class ExecutionHit(object):
         analyzer_name: str,
         node_view: "Accepts",
         risk_score: int,
-        lenses: Dict[str, str],
+        lenses: List[Tuple[str, str]],
     ) -> None:
         node_view = cast(NodeView, NodeView.from_view(node_view))
         self.root_node_key = node_view.node.node_key
