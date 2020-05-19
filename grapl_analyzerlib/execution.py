@@ -1,5 +1,5 @@
 import json
-from typing import Union, cast, List
+from typing import Union, cast, Dict
 
 
 class ExecutionHit(object):
@@ -8,13 +8,10 @@ class ExecutionHit(object):
         analyzer_name: str,
         node_view: "Accepts",
         risk_score: int,
-        lenses: Union[List[str], str],
+        lenses: Dict[str, str],
     ) -> None:
         node_view = cast(NodeView, NodeView.from_view(node_view))
         self.root_node_key = node_view.node.node_key
-
-        if isinstance(lenses, str):
-            lenses = [lenses]
 
         node_dict = node_view.to_adjacency_list()
         self.analyzer_name = analyzer_name
