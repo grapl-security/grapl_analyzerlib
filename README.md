@@ -1,7 +1,13 @@
 # grapl_analyzerlib
+
 A library for working with [Grapl](https://github.com/insanitybit/grapl)
 
 [readthedocs](https://grapl-analyzerlib.readthedocs.io/en/latest/)
+
+## NOTICE
+Grapl has ceased operations as a company. As such, this code is no
+longer being actively developed, but will remain available in an
+archived state.
 
 # Development Setup
 ```
